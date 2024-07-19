@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import ThemedText from '../common/ThemedText';
+import { Styles } from '../common/Styles';
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -18,7 +19,9 @@ export default function RegisterScreen({ navigation }) {
       <TextInput value={email} onChangeText={setEmail} style={styles.input} />
       <ThemedText>Password</ThemedText>
       <TextInput value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
+      <View style={Styles.btnContainer}>
       <Button title="Register" onPress={handleRegister} />
+      </View>
     </View>
   );
 }

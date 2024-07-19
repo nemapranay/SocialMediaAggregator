@@ -1,12 +1,13 @@
 // screens/SettingsScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
+import { View, Text, Switch, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from '../redux/slices/feedSlice';
 import ThemedText from '../common/ThemedText';
+import { THEME_COLOR } from '../common/Constants';
 
-export default function SettingsScreen() {
+export default function SettingsScreen({ navigation }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const dispatch = useDispatch();
 
@@ -33,10 +34,16 @@ export default function SettingsScreen() {
     <View style={styles.container}>
       <ThemedText>Dark Mode</ThemedText>
       <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+      <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
+        <View style={styles.btnContainer}>
+          <ThemedText>Logout</ThemedText>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16 }
+  container: { padding: 16 },
+  btnContainer: { padding:16 , backgroundColor:THEME_COLOR, marginVertical:10}
 });
