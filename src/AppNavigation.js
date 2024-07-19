@@ -12,15 +12,34 @@ import HomeScreen from './screens/HomeScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { setTheme } from './redux/slices/feedSlice';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import icons from react-native-vector-icons
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
+  const isDarkMode = useSelector(state => state.feeds.theme) === 'dark' ? true : false
+  const tabBarOptions = {
+    activeTintColor: isDarkMode ? 'white' : 'black',
+    inactiveTintColor: isDarkMode ? 'gray' : 'darkgray',
+    style: {
+      backgroundColor: isDarkMode ? 'black' : 'white'
+    }
+  };
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+    <Tab.Navigator screenOptions={tabBarOptions}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home-outline" color={color} size={size} />
+          ),
+        }} />
+      <Tab.Screen name="Settings" component={SettingsScreen} options={{
+          tabBarLabel: 'Settings',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="settings-outline" color={color} size={size} />
+          ),
+        }} />
     </Tab.Navigator>
   );
 }
