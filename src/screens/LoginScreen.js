@@ -1,16 +1,34 @@
 // screens/LoginScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import ThemedText from '../common/ThemedText';
 import { Styles } from '../common/Styles'
+import { useSelector } from 'react-redux';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const users = useSelector((state)=>state?.users?.users)
+
+  function checkCredentials(email, password) {
+    for (const user of users) {
+      if (user.email === email && user.password === password) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   const handleLogin = () => {
     // Perform login logic here
-    navigation.replace('Main');
+    if (checkCredentials(email, password)) {
+      setEmail('')
+      setPassword('')
+      navigation.replace('Main');
+    } else {
+      Alert.alert("Error","Wrong Data")
+    }
   };
 
   return (
