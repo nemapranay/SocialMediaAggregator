@@ -21,9 +21,10 @@ const influencerSlice = createSlice({
       state.followedInfluencers = state.followedInfluencers.filter(
         influencer => influencer.id !== action.payload.id
       );
-    }
+    },
+    resetInfluencer: () => initialState
   }
 });
 
-export const { followInfluencer, unfollowInfluencer } = influencerSlice.actions;
+export const { followInfluencer, unfollowInfluencer, resetInfluencer } = influencerSlice.actions;
 export default influencerSlice.reducer;

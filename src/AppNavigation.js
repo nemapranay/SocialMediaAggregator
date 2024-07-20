@@ -24,7 +24,8 @@ function MainTabs() {
     inactiveTintColor: isDarkMode ? 'gray' : 'darkgray',
     style: {
       backgroundColor: isDarkMode ? 'black' : 'white'
-    }
+    },
+    headerShown:false
   };
   return (
     <Tab.Navigator screenOptions={tabBarOptions}>
