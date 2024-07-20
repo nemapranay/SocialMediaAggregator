@@ -1,20 +1,29 @@
 // screens/HomeScreen.js
-import React from 'react';
+import React, { useState } from 'react';
 import { View, FlatList, StyleSheet, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { followInfluencer, unfollowInfluencer } from '../redux/slices/influencerSlice';
 import { THEME_COLOR } from '../common/Constants';
 import ThemedText from '../common/ThemedText';
 import { setCurrentUser, setUser } from '../redux/slices/userSlice';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HomeScreen() {
+
+  const [selectedPlatforms, setSelectedPlatforms] = useState(['facebook', 'instagram', 'twitter', 'yahoo']);
   const dispatch = useDispatch();
   const influencers = useSelector(state => state.influencers.influencers);
   const followedInfluencers = useSelector(state => state.influencers.followedInfluencers);
   const feeds = useSelector(state => state.feeds.feeds);
   const currentUser = useSelector((state) => state?.users?.currentUser)
-  const currentUsersFeed = feeds?.filter((el) => { return (currentUser.followedInfluencersId.includes(el.influencerId)) })
-  // const currrentFollowedInfluencers = influencers?.filter((el)=>{ return  }) followedInfluencersId
+  const currentUsersFeedtemp = feeds?.filter((el) => { return (currentUser.followedInfluencersId.includes(el.influencerId)) })
+  const currentUsersFeed = currentUsersFeedtemp?.filter((el) => { 
+    if(selectedPlatforms?.includes(el.platform)){
+      return el
+    }
+    })
+  const platforms = ['facebook', 'instagram', 'twitter', 'yahoo']
+
 
 
   const renderFeed = ({ item }) => (
@@ -69,6 +78,34 @@ export default function HomeScreen() {
       <View style={{ flex: 0.6 }}>
         <View style={styles.heading}>
           <ThemedText>Latest Feeds</ThemedText>
+        </View>
+        <View style={{ marginVertical: 10, flexDirection: "row" }}>
+          {
+            platforms.map((item) => {
+              const isSelected = selectedPlatforms.includes(item)
+              return (
+                <TouchableOpacity onPress={() => {
+                  const currentIndex = selectedPlatforms.indexOf(item)
+                  if (currentIndex === -1) {
+                    setSelectedPlatforms([...selectedPlatforms, item])
+                  } else {
+                    let temp = [...selectedPlatforms]
+                    temp.splice(currentIndex, 1)
+                    setSelectedPlatforms(temp)
+                  }
+                }}>
+                  <View style={{ padding: 10, borderWidth: 1, margin: 5, borderRadius: 10, borderColor: isSelected ? THEME_COLOR : "black" }}>
+                    <ThemedText>
+                      {item}
+                    </ThemedText>
+                  </View>
+                </TouchableOpacity>
+              )
+            })
+          }
+        </View>
+        <View style={{ marginVertical: 10, flexDirection: "row" }}>
+
         </View>
         {
           currentUsersFeed?.length > 0 ?
