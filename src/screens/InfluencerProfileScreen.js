@@ -5,6 +5,7 @@ import ThemedText from '../common/ThemedText';
 import { useDispatch, useSelector } from 'react-redux';
 import { THEME_COLOR } from '../common/Constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Feed from '../components/Feed';
 
 export default function InfluencerProfileScreen({ navigation, route }) {
     const { name, id } = route?.params?.item
@@ -29,27 +30,7 @@ export default function InfluencerProfileScreen({ navigation, route }) {
             </View>
 
             <View style={{ flex: 0.6 }}>
-                <View style={styles.heading}>
-                    <ThemedText>Latest Feeds</ThemedText>
-                </View>
-                <View style={{ marginVertical: 10, flexDirection: "row" }}>
-
-                </View>
-                {
-                    feedsOfInfluencer?.length > 0 ?
-                        (
-                            <FlatList
-                                data={feedsOfInfluencer}
-                                keyExtractor={(item) => item.id}
-                                style={{ flex: 1 }}
-                                renderItem={renderFeed}
-                            />
-                        )
-                        :
-                        (
-                            noDataWithMsg("No feeds found, please follow more influencers to see data")
-                        )
-                }
+                <Feed />
             </View>
         </View>
     );

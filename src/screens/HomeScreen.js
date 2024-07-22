@@ -1,42 +1,21 @@
 // screens/HomeScreen.js
 import React, { useState } from 'react';
-import { View, FlatList, StyleSheet, Button } from 'react-native';
+import { View, FlatList, StyleSheet, Button, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { followInfluencer, unfollowInfluencer } from '../redux/slices/influencerSlice';
 import { THEME_COLOR } from '../common/Constants';
 import ThemedText from '../common/ThemedText';
 import { setCurrentUser, setUser } from '../redux/slices/userSlice';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Feed from '../components/Feed';
+import { showAlert } from '../common/utils';
 
 export default function HomeScreen({ navigation }) {
 
-  const [selectedPlatforms, setSelectedPlatforms] = useState(['facebook', 'instagram', 'twitter', 'yahoo']);
   const dispatch = useDispatch();
   const influencers = useSelector(state => state.influencers.influencers);
-  const feeds = useSelector(state => state.feeds.feeds);
   const currentUser = useSelector((state) => state?.users?.currentUser)
-  const currentUsersFeedtemp = feeds?.filter((el) => { return (currentUser.followedInfluencersId.includes(el.influencerId)) })
-  const currentUsersFeed = currentUsersFeedtemp?.filter((el) => {
-    if (selectedPlatforms?.includes(el.platform)) {
-      return el
-    }
-  })
-  const platforms = ['facebook', 'instagram', 'twitter', 'yahoo']
 
-
-
-  const renderFeed = ({ item }) => (
-    <View style={styles.feedItem}>
-      <ThemedText>{item.content}</ThemedText>
-    </View>
-  );
-  const noDataWithMsg = (msg) => {
-    return (
-      <View style={{ marginVertical: 10 }}>
-        <ThemedText>{msg}</ThemedText>
-      </View>
-    )
-  }
   return (
     <View style={styles.container}>
       <View style={[styles.heading, { backgroundColor: 'transparent', marginVertical: 10 }]}>
@@ -54,7 +33,11 @@ export default function HomeScreen({ navigation }) {
             const isFollowed = currentUser?.followedInfluencersId?.includes(item.id)
             return (
               <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>
-                <TouchableOpacity onPress={() => navigation.navigate('InfluencerProfileScreen', { item })}>
+                <TouchableOpacity onPress={() => {
+                  if (!isFollowed) showAlert("You need to follow first to see profile")
+                  else
+                    navigation.navigate('InfluencerProfileScreen', { item })
+                }}>
                   <ThemedText>{item.name}</ThemedText>
                 </TouchableOpacity>
                 <Button title={isFollowed ? "unfollow" : "Follow"} onPress={() => {
@@ -74,56 +57,9 @@ export default function HomeScreen({ navigation }) {
           }}
         />
       </View>
-
       <View style={{ flex: 0.6 }}>
-        <View style={styles.heading}>
-          <ThemedText>Latest Feeds</ThemedText>
-        </View>
-        <View style={{ marginVertical: 10, flexDirection: "row" }}>
-          {
-            platforms.map((item, index) => {
-              const isSelected = selectedPlatforms.includes(item)
-              return (
-                <TouchableOpacity key={index} onPress={() => {
-                  const currentIndex = selectedPlatforms.indexOf(item)
-                  if (currentIndex === -1) {
-                    setSelectedPlatforms([...selectedPlatforms, item])
-                  } else {
-                    let temp = [...selectedPlatforms]
-                    temp.splice(currentIndex, 1)
-                    setSelectedPlatforms(temp)
-                  }
-                }}>
-                  <View style={{ padding: 10, borderWidth: 1, margin: 5, borderRadius: 10, borderColor: isSelected ? THEME_COLOR : "black" }}>
-                    <ThemedText>
-                      {item}
-                    </ThemedText>
-                  </View>
-                </TouchableOpacity>
-              )
-            })
-          }
-        </View>
-        <View style={{ marginVertical: 10, flexDirection: "row" }}>
-
-        </View>
-        {
-          currentUsersFeed?.length > 0 ?
-            (
-              <FlatList
-                data={currentUsersFeed}
-                keyExtractor={(item) => item.id}
-                style={{ flex: 1 }}
-                renderItem={renderFeed}
-              />
-            )
-            :
-            (
-              noDataWithMsg("No feeds found, please follow more influencers to see data")
-            )
-        }
+        <Feed />
       </View>
-
     </View>
   );
 }
