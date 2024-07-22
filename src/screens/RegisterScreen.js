@@ -24,7 +24,6 @@ export default function RegisterScreen({ navigation }) {
       email:email,
       password:password
   }
-  console.log("obj===",obj)
   dispatch(setUser(obj))
     navigation.replace('Login');
   };
