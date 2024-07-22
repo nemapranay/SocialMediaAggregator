@@ -13,6 +13,8 @@ import SettingsScreen from './screens/SettingsScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { setTheme } from './redux/slices/feedSlice';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import icons from react-native-vector-icons
+import InfluencerProfileScreen from './screens/InfluencerProfileScreen';
+import { Button } from 'react-native'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,22 +27,22 @@ function MainTabs() {
     style: {
       backgroundColor: isDarkMode ? 'black' : 'white'
     },
-    headerShown:false
+    headerShown: false
   };
   return (
     <Tab.Navigator screenOptions={tabBarOptions}>
       <Tab.Screen name="Home" component={HomeScreen} options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home-outline" color={color} size={size} />
-          ),
-        }} />
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="home-outline" color={color} size={size} />
+        ),
+      }} />
       <Tab.Screen name="Settings" component={SettingsScreen} options={{
-          tabBarLabel: 'Settings',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="settings-outline" color={color} size={size} />
-          ),
-        }} />
+        tabBarLabel: 'Settings',
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="settings-outline" color={color} size={size} />
+        ),
+      }} />
     </Tab.Navigator>
   );
 }
@@ -67,6 +69,7 @@ export default function AppNavigation() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Main" component={MainTabs} />
+            <Stack.Screen name="InfluencerProfileScreen" component={InfluencerProfileScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>

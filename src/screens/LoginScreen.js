@@ -52,5 +52,5 @@ export default function LoginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { padding: 16, flex: 1, justifyContent: 'center' },
-  input: { height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 12, paddingHorizontal: 8 }
+  input: { height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 12, paddingHorizontal: 8, color:"grey" }
 });

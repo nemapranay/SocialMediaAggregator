@@ -8,20 +8,19 @@ import ThemedText from '../common/ThemedText';
 import { setCurrentUser, setUser } from '../redux/slices/userSlice';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 
   const [selectedPlatforms, setSelectedPlatforms] = useState(['facebook', 'instagram', 'twitter', 'yahoo']);
   const dispatch = useDispatch();
   const influencers = useSelector(state => state.influencers.influencers);
-  const followedInfluencers = useSelector(state => state.influencers.followedInfluencers);
   const feeds = useSelector(state => state.feeds.feeds);
   const currentUser = useSelector((state) => state?.users?.currentUser)
   const currentUsersFeedtemp = feeds?.filter((el) => { return (currentUser.followedInfluencersId.includes(el.influencerId)) })
-  const currentUsersFeed = currentUsersFeedtemp?.filter((el) => { 
-    if(selectedPlatforms?.includes(el.platform)){
+  const currentUsersFeed = currentUsersFeedtemp?.filter((el) => {
+    if (selectedPlatforms?.includes(el.platform)) {
       return el
     }
-    })
+  })
   const platforms = ['facebook', 'instagram', 'twitter', 'yahoo']
 
 
@@ -55,7 +54,9 @@ export default function HomeScreen() {
             const isFollowed = currentUser?.followedInfluencersId?.includes(item.id)
             return (
               <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>
-                <ThemedText>{item.name}</ThemedText>
+                <TouchableOpacity onPress={() => navigation.navigate('InfluencerProfileScreen', { item })}>
+                  <ThemedText>{item.name}</ThemedText>
+                </TouchableOpacity>
                 <Button title={isFollowed ? "unfollow" : "Follow"} onPress={() => {
                   if (isFollowed) {
                     dispatch(unfollowInfluencer(item))
