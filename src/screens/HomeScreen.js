@@ -38,7 +38,6 @@ export default function HomeScreen() {
       </View>
     )
   }
-  console.log("currentUser==", currentUser)
   return (
     <View style={styles.container}>
       <View style={[styles.heading, { backgroundColor: 'transparent', marginVertical: 10 }]}>
@@ -81,10 +80,10 @@ export default function HomeScreen() {
         </View>
         <View style={{ marginVertical: 10, flexDirection: "row" }}>
           {
-            platforms.map((item) => {
+            platforms.map((item, index) => {
               const isSelected = selectedPlatforms.includes(item)
               return (
-                <TouchableOpacity onPress={() => {
+                <TouchableOpacity key={index} onPress={() => {
                   const currentIndex = selectedPlatforms.indexOf(item)
                   if (currentIndex === -1) {
                     setSelectedPlatforms([...selectedPlatforms, item])
@@ -131,7 +130,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16, backgroundColor: 'lightgrey'
+    padding: 16
   },
   feedItem: { padding: 8, borderBottomWidth: 1, borderBottomColor: 'gray' },
   heading: {
