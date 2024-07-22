@@ -42,6 +42,7 @@ function MainTabs() {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
+          tabBarLabelStyle: {color:"grey"},
           tabBarIcon: ({color, size, focused}) => (
             <Icon
               name="home-outline"
@@ -56,6 +57,7 @@ function MainTabs() {
         component={SettingsScreen}
         options={{
           tabBarLabel: 'Settings',
+          tabBarLabelStyle: {color:"grey"},
           tabBarIcon: ({color, size, focused}) => (
             <Icon
               name="settings-outline"

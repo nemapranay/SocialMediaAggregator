@@ -3,9 +3,9 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   influencers: [
-    {id: '1', name: 'Influencer 1'},
-    {id: '2', name: 'Influencer 2'},
-    {id: '3', name: 'Influencer 3'},
+    {id: '1', name: 'Narendra Modi'},
+    {id: '2', name: 'Virat kohli'},
+    {id: '3', name: 'Ranbir kapoor'}
   ],
   followedInfluencers: [],
 };
