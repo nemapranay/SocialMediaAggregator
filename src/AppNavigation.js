@@ -15,6 +15,7 @@ import { setTheme } from './redux/slices/feedSlice';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import icons from react-native-vector-icons
 import InfluencerProfileScreen from './screens/InfluencerProfileScreen';
 import { Button } from 'react-native'
+import { THEME_COLOR } from './common/Constants';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,14 +34,14 @@ function MainTabs() {
     <Tab.Navigator screenOptions={tabBarOptions}>
       <Tab.Screen name="Home" component={HomeScreen} options={{
         tabBarLabel: 'Home',
-        tabBarIcon: ({ color, size }) => (
-          <Icon name="home-outline" color={color} size={size} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <Icon name="home-outline" color={focused ? THEME_COLOR : color} size={size} />
         ),
       }} />
       <Tab.Screen name="Settings" component={SettingsScreen} options={{
         tabBarLabel: 'Settings',
-        tabBarIcon: ({ color, size }) => (
-          <Icon name="settings-outline" color={color} size={size} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <Icon name="settings-outline" color={focused ? THEME_COLOR : color} size={size} />
         ),
       }} />
     </Tab.Navigator>

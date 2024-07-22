@@ -1,1 +1,1 @@
-export const THEME_COLOR = "#777"
+export const THEME_COLOR = "#d79921"

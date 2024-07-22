@@ -6,6 +6,7 @@ import { Styles } from '../common/Styles';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/slices/userSlice';
 import { showAlert } from '../common/utils';
+import { THEME_COLOR } from '../common/Constants';
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -30,20 +31,16 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ThemedText>Name</ThemedText>
-      <TextInput value={name} onChangeText={setName} style={styles.input} />
-      <ThemedText>Email</ThemedText>
-      <TextInput value={email} onChangeText={setEmail} style={styles.input} />
-      <ThemedText>Password</ThemedText>
-      <TextInput value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
+      <TextInput placeholderTextColor="gray" placeholder='Please Enter name here' value={name} onChangeText={setName} style={Styles.input} />
+      <TextInput placeholderTextColor="gray" placeholder='Please Choose email-address' value={email} onChangeText={setEmail} style={Styles.input} />
+      <TextInput placeholderTextColor="gray" placeholder='Choose a password' value={password} onChangeText={setPassword} secureTextEntry style={Styles.input} />
       <View style={Styles.btnContainer}>
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="Register" color={THEME_COLOR} onPress={handleRegister} />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16, flex:1, justifyContent:'center' },
-  input: { height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 12, paddingHorizontal: 8, color:"grey" }
+  container: { padding: 16, flex:1, justifyContent:'center' }
 });

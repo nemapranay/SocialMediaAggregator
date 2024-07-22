@@ -32,15 +32,20 @@ export default function HomeScreen({ navigation }) {
           renderItem={({ item }) => {
             const isFollowed = currentUser?.followedInfluencersId?.includes(item.id)
             return (
-              <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>
-                <TouchableOpacity onPress={() => {
+              <View style={{ flexDirection: "row", alignItems: "center", borderWidth:0.5, margin:10, borderRadius:10,padding:5 }}>
+                <View style={{height:30,width:30, borderRadius:15, backgroundColor:THEME_COLOR}} />
+                <TouchableOpacity 
+                onPress={() => {
                   if (!isFollowed) showAlert("You need to follow first to see profile")
                   else
                     navigation.navigate('InfluencerProfileScreen', { item })
-                }}>
+                }}
+                style={{marginLeft:10}}
+                >
                   <ThemedText>{item.name}</ThemedText>
                 </TouchableOpacity>
-                <Button title={isFollowed ? "unfollow" : "Follow"} onPress={() => {
+                <View style={{right:10,position:'absolute'}}>
+                <Button color={"#d79921"}  title={isFollowed ? "unfollow" : "Follow"} onPress={() => {
                   if (isFollowed) {
                     dispatch(unfollowInfluencer(item))
                     let tempList = [...currentUser.followedInfluencersId]
@@ -52,6 +57,7 @@ export default function HomeScreen({ navigation }) {
                     dispatch(setCurrentUser({ followedInfluencersId: [...currentUser?.followedInfluencersId, ...item?.id] }))
                   }
                 }} />
+                </View>
               </View>
             )
           }}
