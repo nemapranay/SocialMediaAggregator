@@ -1,12 +1,12 @@
 // slices/feedSlice.js
-import { createSlice, current } from '@reduxjs/toolkit';
+import {createSlice, current} from '@reduxjs/toolkit';
 
 const initialState = {
-  users:[],
-  currentUser:{
-    name:"",
-    followedInfluencersId:[]
-  }
+  users: [],
+  currentUser: {
+    name: '',
+    followedInfluencersId: [],
+  },
 };
 
 const userSlice = createSlice({
@@ -14,14 +14,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.users = [...state.users , action.payload]
+      state.users = [...state.users, action.payload];
     },
     setCurrentUser: (state, action) => {
-      state.currentUser = {...state.currentUser , ...action.payload}
+      state.currentUser = {...state.currentUser, ...action.payload};
     },
-    resetUser: () => initialState
-  }
+    resetUser: () => initialState,
+  },
 });
 
-export const { setUser, setCurrentUser, resetUser } = userSlice.actions;
+export const {setUser, setCurrentUser, resetUser} = userSlice.actions;
 export default userSlice.reducer;

@@ -1,13 +1,13 @@
 // slices/influencerSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   influencers: [
-    { id: '1', name: 'Influencer 1' },
-    { id: '2', name: 'Influencer 2' },
-    { id: '3', name: 'Influencer 3' }
+    {id: '1', name: 'Influencer 1'},
+    {id: '2', name: 'Influencer 2'},
+    {id: '3', name: 'Influencer 3'},
   ],
-  followedInfluencers: []
+  followedInfluencers: [],
 };
 
 const influencerSlice = createSlice({
@@ -19,12 +19,13 @@ const influencerSlice = createSlice({
     },
     unfollowInfluencer: (state, action) => {
       state.followedInfluencers = state.followedInfluencers.filter(
-        influencer => influencer.id !== action.payload.id
+        influencer => influencer.id !== action.payload.id,
       );
     },
-    resetInfluencer: () => initialState
-  }
+    resetInfluencer: () => initialState,
+  },
 });
 
-export const { followInfluencer, unfollowInfluencer, resetInfluencer } = influencerSlice.actions;
+export const {followInfluencer, unfollowInfluencer, resetInfluencer} =
+  influencerSlice.actions;
 export default influencerSlice.reducer;

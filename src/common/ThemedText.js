@@ -1,15 +1,15 @@
 // components/ThemedText.js
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import {Text, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 
-export default function ThemedText({ children, style, ...props }) {
-    const theme = useSelector(state => state.feeds.theme);
-  const isDarkMode = theme === 'dark' ? true : false
+export default function ThemedText({children, style, ...props}) {
+  const theme = useSelector(state => state.feeds.theme);
+  const isDarkMode = theme === 'dark' ? true : false;
   const textColor = isDarkMode ? 'white' : 'black';
 
   return (
-    <Text style={[styles.text, { color: textColor }, style]} {...props}>
+    <Text style={[styles.text, {color: textColor}, style]} {...props}>
       {children}
     </Text>
   );
